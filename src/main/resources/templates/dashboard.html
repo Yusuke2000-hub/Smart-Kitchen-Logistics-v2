@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>GENKA LIFE ダッシュボード</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen p-6">
+<div class="max-w-2xl mx-auto">
+
+    <!-- ヘッダー -->
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">GENKA LIFE ダッシュボード</h1>
+
+    <!-- 生活防衛力カード -->
+    <div class="bg-white rounded-xl shadow p-6 mb-6">
+        <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">生活防衛力</h2>
+
+        <!-- 実績 % と目標 -->
+        <div class="flex items-baseline gap-3 mb-4">
+            <span class="text-5xl font-bold"
+                  th:class="${vm.defenseRate > vm.targetRate} ? 'text-5xl font-bold text-red-500' : 'text-5xl font-bold text-green-500'"
+                  th:text="${#numbers.formatDecimal(vm.defenseRate, 1, 1)} + '%'">32.5%</span>
+            <span class="text-gray-400">
+                / 目標
+                <span th:text="${#numbers.formatDecimal(vm.targetRate, 1, 1)} + '%'">70.0%</span>
+            </span>
+        </div>
+
+        <!-- プログレスバー -->
+        <div class="relative w-full bg-gray-200 rounded-full h-5 mb-1">
+            <div class="h-5 rounded-full"
+                 th:class="${vm.defenseRate > vm.targetRate} ? 'bg-red-400 h-5 rounded-full' : 'bg-green-400 h-5 rounded-full'"
+                 th:style="|width: ${vm.barWidth}%;|"></div>
+            <!-- 目標ライン -->
+            <div class="absolute top-0 bottom-0 w-0.5 bg-gray-700"
+                 th:style="|left: ${vm.targetRate}%;|"></div>
+        </div>
+        <div class="flex justify-between text-xs text-gray-400 mb-4">
+            <span>0%</span>
+            <span th:text="'目標 ' + ${#numbers.formatDecimal(vm.targetRate, 1, 1)} + '%'">目標 70.0%</span>
+            <span>100%</span>
+        </div>
+
+        <!-- ギャップ表示 -->
+        <div th:if="${vm.gap >= 0}" class="flex items-center gap-2 p-3 bg-green-50 rounded-lg text-green-700 text-sm font-medium">
+            <span>&#10003;</span>
+            <span>目標まで
+                <strong th:text="${#numbers.formatDecimal(vm.gap, 1, 1)} + '%'">37.5%</strong>
+                の余裕があります
+            </span>
+        </div>
+        <div th:if="${vm.gap < 0}" class="flex items-center gap-2 p-3 bg-red-50 rounded-lg text-red-700 text-sm font-medium">
+            <span>&#9888;</span>
+            <span>目標を
+                <strong th:text="${#numbers.formatDecimal(vm.gap * -1, 1, 1)} + '%'">5.0%</strong>
+                超過しています
+            </span>
+        </div>
+    </div>
+
+    <!-- 総支出カード -->
+    <div class="bg-white rounded-xl shadow p-6 mb-6">
+        <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">今月の総支出</h2>
+        <p class="text-4xl font-bold text-gray-800">
+            ¥<span th:text="${#numbers.formatDecimal(vm.totalAmount, 1, 'COMMA', 0, 'POINT')}">65,000</span>
+            <span class="text-base font-normal text-gray-400 ml-2">/ 月収 ¥200,000</span>
+        </p>
+    </div>
+
+    <!-- 費目別支出テーブル -->
+    <div class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">費目別支出</h2>
+
+        <!-- データなし -->
+        <div th:if="${#lists.isEmpty(vm.expenses)}" class="text-center py-8 text-gray-400">
+            <p class="mb-2">支出データがありません。</p>
+            <a href="/expenses/save" class="text-blue-500 underline text-sm">/expenses/save でサンプルデータを登録</a>
+        </div>
+
+        <!-- 費目テーブル -->
+        <table th:unless="${#lists.isEmpty(vm.expenses)}" class="w-full text-sm">
+            <thead>
+                <tr class="border-b border-gray-100 text-gray-400">
+                    <th class="text-left pb-3 font-medium">費目</th>
+                    <th class="text-right pb-3 font-medium">金額</th>
+                    <th class="text-right pb-3 font-medium">日付</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="e : ${vm.expenses}" class="border-b border-gray-50 hover:bg-gray-50">
+                    <td class="py-3 text-gray-800 font-medium" th:text="${e.category}">食費</td>
+                    <td class="py-3 text-right text-gray-800">
+                        ¥<span th:text="${#numbers.formatDecimal(e.amount, 1, 'COMMA', 0, 'POINT')}">45,000</span>
+                    </td>
+                    <td class="py-3 text-right text-gray-400" th:text="${e.date}">2026-07-25</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>
