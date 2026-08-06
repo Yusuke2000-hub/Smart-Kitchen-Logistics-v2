@@ -3,8 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>支出登録 - COSTLY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>支出登録画面(仮)</h1>
+<body class="bg-gray-50 min-h-screen p-6">
+<div class="max-w-md mx-auto">
+
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">支出を登録する</h1>
+
+    <form th:action="@{/expense/save}" method="post" class="bg-white rounded-xl shadow p-6 space-y-4">
+
+        <div>
+            <label class="block text-sm font-semibold text-gray-600 mb-1">費目</label>
+            <select name="category" class="w-full border rounded-lg p-2">
+                <option value="食費">食費</option>
+                <option value="光熱費">光熱費</option>
+                <option value="通信費">通信費</option>
+                <option value="住居費">住居費</option>
+                <option value="交通費">交通費</option>
+                <option value="娯楽費">娯楽費</option>
+                <option value="医療費">医療費</option>
+                <option value="その他">その他</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-sm font-semibold text-gray-600 mb-1">金額(円)</label>
+            <input type="number" name="amount" min="0" class="w-full border rounded-lg p-2" required>
+        </div>
+
+        <div>
+            <label class="block text-sm font-semibold text-gray-600 mb-1">日付</label>
+            <input type="date" name="date" class="w-full border rounded-lg p-2" required>
+        </div>
+
+        <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 rounded-lg mt-4">
+            登録する
+        </button>
+
+    </form>
+
+    <a th:href="@{/dashboard}" class="block text-center mt-4 text-sm text-gray-500 underline">
+        ダッシュボードに戻る
+    </a>
+
+</div>
 </body>
 </html>
