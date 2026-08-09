@@ -7,7 +7,7 @@ import jp.kitchen.Smart_Kitchen_Logistics_v2.service.LivingCostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
@@ -26,13 +26,15 @@ public class DashboardController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboard(Model model) {
-        List<HouseholdExpense> expenses = expenseRepository.findAll();
-        double defenseRate = livingCostService.calcDefenseRate(expenses, MONTHLY_INCOME);
-        double totalAmount = expenses.stream().mapToDouble(HouseholdExpense::getAmount).sum();
-        double gap = TARGET_RATE - defenseRate;
+public String dashboard(Model model,
+                         @RequestParam(required = false) String registered) {
+    List<HouseholdExpense> expenses = expenseRepository.findAll();
+    double defenseRate = livingCostService.calcDefenseRate(expenses, MONTHLY_INCOME);
+    double totalAmount = expenses.stream().mapToDouble(HouseholdExpense::getAmount).sum();
+    double gap = TARGET_RATE - defenseRate;
 
-        model.addAttribute("vm", new DashboardViewModel(defenseRate, TARGET_RATE, gap, expenses, totalAmount));
-        return "dashboard";
-    }
+    model.addAttribute("vm", new DashboardViewModel(defenseRate, TARGET_RATE, gap, expenses, totalAmount));
+    model.addAttribute("registered", registered);
+    return "dashboard";
+}
 }

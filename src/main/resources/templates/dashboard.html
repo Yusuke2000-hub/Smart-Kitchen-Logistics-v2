@@ -2,14 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>GENKA LIFE ダッシュボード</title>
+    <title>支出管理 - COSTLY</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 min-h-screen p-6">
 <div class="max-w-2xl mx-auto">
 
     <!-- ヘッダー -->
-    <h1 class="text-3xl font-bold text-gray-800 mb-8">GENKA LIFE ダッシュボード</h1>
+    <div th:if="${registered == 'true'}" class="bg-green-100 text-green-700 text-center py-3 rounded-lg mb-4 font-semibold">
+        ✅ 支出を登録しました!
+    </div>
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">COSTLY ダッシュボード</h1>
 
     <!-- 生活防衛力カード -->
     <div class="bg-white rounded-xl shadow p-6 mb-6">
@@ -98,12 +101,15 @@
         </table>
     </div>
     <div class="text-center mt-6">
-        <a href="/" class="inline-block bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-full shadow transition">
-            ← スタート画面に戻る
-        </a>
-        <a th:href="@{/expense/new}" class="block text-center mt-4 text-sm text-gray-500 underline">
-            支出を登録する
-        </a>
+        <div class="flex flex-col items-center mt-6 space-y-3">
+            <a href="/" class="inline-block bg-gray-600 hover:bg-gray-700 active:scale-95 text-white font-bold py-3 px-8 rounded-full shadow transition">
+                ← スタート画面に戻る
+            </a>
+            <a th:href="@{/expense/new}" class="inline-block bg-green-600 hover:bg-green-700 active:scale-95 text-white font-bold py-3 px-8 rounded-full shadow transition">
+                ＋ 支出を登録する
+            </a>
+        </div>
+</a>
     </div>
 </div>
 </body>

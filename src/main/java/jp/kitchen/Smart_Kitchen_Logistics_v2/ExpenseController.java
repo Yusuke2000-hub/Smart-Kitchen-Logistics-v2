@@ -3,6 +3,7 @@ package jp.kitchen.Smart_Kitchen_Logistics_v2;
 import jp.kitchen.Smart_Kitchen_Logistics_v2.model.HouseholdExpense;
 import jp.kitchen.Smart_Kitchen_Logistics_v2.repository.HouseholdExpenseRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,19 +20,26 @@ public class ExpenseController {
     }
 
     @GetMapping("/expense/new")
-    public String showExpenseForm() {
-        return "expense-form";
-    }
+public String showExpenseForm(Model model) {
+    model.addAttribute("today", java.time.LocalDate.now());
+    return "expense-form";
+}
 
     @PostMapping("/expense/save")
-    public String saveExpense(
-            @RequestParam String category,
-            @RequestParam double amount,
-            @RequestParam String date
-    ) {
+public String saveExpense(
+        @RequestParam String category,
+        @RequestParam double amount,
+        @RequestParam String date,
+        Model model
+) {
+    try {
         HouseholdExpense expense = new HouseholdExpense(category, amount, LocalDate.parse(date));
         expenseRepository.save(expense);
-
-        return "redirect:/dashboard";
+        return "redirect:/dashboard?registered=true";
+    } catch (IllegalArgumentException e) {
+        model.addAttribute("errorMessage", e.getMessage());
+        model.addAttribute("today", java.time.LocalDate.now());
+        return "expense-form";
     }
+}
 }
