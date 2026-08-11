@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <title>支出管理 - COSTLY</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media (max-width: 639px) {
+            .date-col { display: none !important; }
+        }
+    </style>
 </head>
-<body class="bg-gray-50 min-h-screen p-6">
-<div class="max-w-2xl mx-auto">
+<body class="bg-gray-50 min-h-screen px-4 py-6 sm:px-6">
+    <div class="max-w-2xl mx-auto w-full">
 
     <!-- ヘッダー -->
     <div th:if="${registered == 'true'}" class="bg-green-100 text-green-700 text-center py-3 rounded-lg mb-4 font-semibold">
@@ -86,16 +91,18 @@
                 <tr class="border-b border-gray-100 text-gray-400">
                     <th class="text-left pb-3 font-medium">費目</th>
                     <th class="text-right pb-3 font-medium">金額</th>
-                    <th class="text-right pb-3 font-medium">日付</th>
+                    <th class="text-right pb-3 font-medium date-col max-sm:hidden">日付</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="e : ${vm.expenses}" class="border-b border-gray-50 hover:bg-gray-50">
+            
+                    <tr th:each="e : ${vm.expenses}" class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 text-right text-gray-400 date-col" th:text="${e.date}">2026-07-25</td>
                     <td class="py-3 text-gray-800 font-medium" th:text="${e.category}">食費</td>
                     <td class="py-3 text-right text-gray-800">
                         ¥<span th:text="${#numbers.formatDecimal(e.amount, 1, 'COMMA', 0, 'POINT')}">45,000</span>
                     </td>
-                    <td class="py-3 text-right text-gray-400" th:text="${e.date}">2026-07-25</td>
+                    <td class="py-3 text-right text-gray-400 date-col max-sm:hidden" th:text="${e.date}">2026-07-25</td>
                 </tr>
             </tbody>
         </table>
