@@ -12,7 +12,7 @@ import java.util.List;
 @Controller
 public class ChallengeController {
 
-    private static final double MONTHLY_INCOME = 200_000.0;
+   private static final double MONTHLY_INCOME = 200_000.0;
     private static final double TARGET_RATE = 70.0;
 
     private final LivingCostService livingCostService;
