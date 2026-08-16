@@ -94,6 +94,47 @@
                 獲得メダル：<span class="text-yellow-600 text-xl font-bold" th:text="${totalMedals}">0</span> 個
             </span>
         </div>
+
+        <!-- 進化キャラクター表示 -->
+        <div class="flex justify-center mt-4">
+            <!-- ひよこ -->
+            <svg th:if="${evolutionStage == 1}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 260" class="w-24 h-24">
+                <ellipse cx="120" cy="175" rx="50" ry="42" fill="#fde047"/>
+                <circle cx="120" cy="115" r="32" fill="#fde047"/>
+                <circle cx="108" cy="105" r="4" fill="#1c1917"/>
+                <circle cx="128" cy="105" r="4" fill="#1c1917"/>
+                <path d="M118 116 L100 122 L118 128 Z" fill="#f97316"/>
+                <path d="M85 165 Q70 160 68 175" fill="none" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+                <path d="M155 165 Q170 160 172 175" fill="none" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+                <path d="M100 215 L108 225 M140 215 L132 225" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <!-- にわとり -->
+            <svg th:if="${evolutionStage == 2}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 260" class="w-24 h-24">
+                <ellipse cx="350" cy="180" rx="60" ry="48" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+                <circle cx="350" cy="105" r="34" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+                <path d="M325 72 Q332 55 340 72 Q346 58 352 72 Q358 60 366 76" fill="none" stroke="#dc2626" stroke-width="7" stroke-linecap="round"/>
+                <circle cx="337" cy="95" r="4.5" fill="#1c1917"/>
+                <circle cx="361" cy="95" r="4.5" fill="#1c1917"/>
+                <path d="M349 108 L322 116 L349 124 Z" fill="#f97316"/>
+                <ellipse cx="317" cy="128" rx="7" ry="5" fill="#fca5a5" opacity="0.7"/>
+                <path d="M400 165 Q432 148 422 185 Q412 197 396 186Z" fill="#e2e8f0"/>
+                <path d="M300 225 L292 240 M310 225 L306 242 M330 228 L330 245" stroke="#f97316" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+            <!-- 金のにわとり -->
+            <svg th:if="${evolutionStage == 3}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 260" class="w-24 h-24">
+                <ellipse cx="580" cy="180" rx="60" ry="48" fill="#fde047" stroke="#eab308" stroke-width="2"/>
+                <circle cx="580" cy="105" r="34" fill="#fde047" stroke="#eab308" stroke-width="2"/>
+                <path d="M555 70 Q562 50 570 70 Q576 55 582 70 Q588 57 596 74" fill="none" stroke="#dc2626" stroke-width="7" stroke-linecap="round"/>
+                <circle cx="567" cy="95" r="4.5" fill="#1c1917"/>
+                <circle cx="591" cy="95" r="4.5" fill="#1c1917"/>
+                <path d="M579 108 L552 116 L579 124 Z" fill="#f97316"/>
+                <ellipse cx="547" cy="128" rx="7" ry="5" fill="#fca5a5" opacity="0.7"/>
+                <path d="M630 165 Q664 146 653 187 Q641 200 623 187Z" fill="#fbbf24"/>
+                <path d="M530 225 L522 240 M540 225 L536 242 M560 228 L560 245" stroke="#eab308" stroke-width="5" stroke-linecap="round"/>
+                <path d="M545 50 l4 12 12 2 -9 8 3 12 -10 -7 -10 7 3 -12 -9 -8 12 -2Z" fill="#facc15" stroke="#eab308" stroke-width="1"/>
+                <path d="M615 58 l3 9 9 1.5 -6.5 6 2 9 -7.5 -5 -7.5 5 2 -9 -6.5 -6 9 -1.5Z" fill="#facc15" stroke="#eab308" stroke-width="1"/>
+            </svg>
+        </div>
     </div>
 
     <!-- ナビゲーション -->

@@ -48,10 +48,20 @@ public class ChallengeController {
         }
         long totalMedals = weeklyMedalRepository.count();
 
+        int evolutionStage;
+        if (totalMedals >= 6) {
+            evolutionStage = 3;
+        } else if (totalMedals >= 3) {
+            evolutionStage = 2;
+        } else {
+            evolutionStage = 1;
+        }
+
         model.addAttribute("defenseRate", defenseRate);
         model.addAttribute("targetRate", TARGET_RATE);
         model.addAttribute("achieved", achieved);
         model.addAttribute("totalMedals", totalMedals);
+        model.addAttribute("evolutionStage", evolutionStage);
         return "challenge";
     }
 }
