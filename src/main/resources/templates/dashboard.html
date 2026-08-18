@@ -102,7 +102,6 @@
             <tbody>
             
                     <tr th:each="e : ${vm.expenses}" class="border-b border-gray-50 hover:bg-gray-50">
-                        <td class="py-3 text-right text-gray-400 date-col" th:text="${e.date}">2026-07-25</td>
                     <td class="py-3 text-gray-800 font-medium" th:text="${e.category}">食費</td>
                     <td class="py-3 text-right text-gray-800">
                         ¥<span th:text="${#numbers.formatDecimal(e.amount, 1, 'COMMA', 0, 'POINT')}">45,000</span>
