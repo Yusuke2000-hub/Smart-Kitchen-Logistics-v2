@@ -42,4 +42,10 @@ public String saveExpense(
         return "expense-form";
     }
 }
+
+    @PostMapping("/expense/delete")
+    public String deleteExpense(@RequestParam Long id) {
+        expenseRepository.deleteById(id);
+        return "redirect:/dashboard?deleted=true";
+    }
 }

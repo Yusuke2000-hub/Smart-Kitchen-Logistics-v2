@@ -96,6 +96,7 @@
                     <th class="text-left pb-3 font-medium">費目</th>
                     <th class="text-right pb-3 font-medium">金額</th>
                     <th class="text-right pb-3 font-medium date-col max-sm:hidden">日付</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -107,6 +108,12 @@
                         ¥<span th:text="${#numbers.formatDecimal(e.amount, 1, 'COMMA', 0, 'POINT')}">45,000</span>
                     </td>
                     <td class="py-3 text-right text-gray-400 date-col max-sm:hidden" th:text="${e.date}">2026-07-25</td>
+                    <td class="py-3 text-right">
+                        <form th:action="@{/expense/delete}" method="post" onsubmit="return confirm('この支出を削除しますか？');">
+                            <input type="hidden" name="id" th:value="${e.id}">
+                            <button type="submit" class="text-red-400 hover:text-red-600 text-sm">削除</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>
