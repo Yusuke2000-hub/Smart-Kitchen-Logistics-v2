@@ -36,14 +36,6 @@ public class KitchenController {
         return livingCostService.buildReport(expenses, 200000);
     }
 
-    @GetMapping("/expenses/save")
-    public String saveExpenses() {
-        expenseRepository.save(new HouseholdExpense("食費", 45000, LocalDate.now()));
-        expenseRepository.save(new HouseholdExpense("光熱費", 12000, LocalDate.now()));
-        expenseRepository.save(new HouseholdExpense("通信費", 8000, LocalDate.now()));
-        return "支出データをDBに保存しました";
-    }
-
     @GetMapping("/expenses")
     public List<HouseholdExpense> getExpenses() {
         return expenseRepository.findAll();

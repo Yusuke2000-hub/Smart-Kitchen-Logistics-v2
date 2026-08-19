@@ -85,8 +85,7 @@
 
         <!-- データなし -->
         <div th:if="${#lists.isEmpty(vm.expenses)}" class="text-center py-8 text-gray-400">
-            <p class="mb-2">支出データがありません。</p>
-            <a href="/expenses/save" class="text-blue-500 underline text-sm">/expenses/save でサンプルデータを登録</a>
+            <p>支出データがありません。</p>
         </div>
 
         <!-- 費目テーブル -->
